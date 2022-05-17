@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useAddress } from '@thirdweb-dev/react'
 import { MdVerified } from 'react-icons/md'
 import TopNavbarLayout from '../../layouts/TopNavbarLayout'
-import CollectionStats from '../Collection/CollectionStats'
-import { doodlesCollection } from '../../static/collections'
-import Listings from './Listings'
+import CollectionStats from './CollectionStats'
+import { collectionData } from '../../static/collections'
+// import Listings from './Listings'
 
 const style = {
   wrapper: `flex flex-col dark:bg-[#202226] relative flex flex-col`,
@@ -29,7 +28,7 @@ const style = {
 
 export default function Home() {
   const address = useAddress()
-  const [collection] = useState(doodlesCollection)
+  const [collection] = useState(collectionData)
   const router = useRouter()
   const { slug } = router.query
 
@@ -48,10 +47,6 @@ export default function Home() {
 
   return (
     <div>
-      <Head>
-        <title>OpenSea, the largest NFT marketplace</title>
-      </Head>
-
       <TopNavbarLayout>
         <div className={style.wrapper}>
           <div className={style.container}>
@@ -99,7 +94,7 @@ export default function Home() {
             </div>
           </div>
 
-          <Listings />
+          {/* <Listings /> */}
         </div>
       </TopNavbarLayout>
     </div>

@@ -1,6 +1,8 @@
-import React from 'react'
+const style = {
+wrapper:`grid grid-cols-2 rounded-xl border md:grid-cols-4 md:divide-x`
+}
 
-function CollectionStats({ stats }) {
+const CollectionStats=({ stats }) =>{
   const formatStat = stat => {
     if (!stat) return
 
