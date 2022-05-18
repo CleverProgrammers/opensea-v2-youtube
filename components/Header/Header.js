@@ -13,7 +13,7 @@ import NavMenus from './NavMenus'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 
-function Navbar() {
+const Navbar = () => {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -30,7 +30,7 @@ function Navbar() {
     if (currentTheme === 'dark') {
       return (
         <MoonIcon
-          className='h-8 w-8 cursor-pointer text-gray-600 transition-all hover:text-black dark:text-gray-300'
+          className={style.themeSwitcher}
           role='button'
           onClick={() => setTheme('light')}
         />
@@ -38,7 +38,7 @@ function Navbar() {
     } else {
       return (
         <SunIcon
-          className='h-8 w-8 cursor-pointer text-gray-600 transition-all hover:text-black dark:text-gray-300'
+          className={style.themeSwitcher}
           role='button'
           onClick={() => setTheme('dark')}
         />
@@ -65,32 +65,43 @@ function Navbar() {
     },
   ]
 
+  const style = {
+    themeSwitcher: `h-8 w-8 cursor-pointer text-gray-600 transition-all hover:text-black dark:text-gray-300`,
+    wrapper: `sticky top-0 z-50 bg-white px-4 py-2 shadow-md dark:bg-gray-900 flex items-center justify-between space-x-6`,
+    logoContainer: `xl:pr-40`,
+    searchContainer: `ml-8 hidden flex-1 sm:block`,
+    menusContainer: `hidden pr-6 lg:block xl:pl-8,`,
+    iconsContainer: `flex items-center space-x-6`,
+    icons: `h-8 w-8 cursor-pointer text-gray-600 transition-all hover:text-black dark:text-gray-300 hover:dark:text-white`,
+    desktopIcons: `hidden lg:block`,
+    mobileIcons: `sm:hidden`,
+    tabletIcons: `lg:hidden`,
+  }
+
   return (
-    <header className='sticky top-0 z-50 bg-white px-4 py-2 shadow-md dark:bg-gray-900'>
-      <div className='flex items-center justify-between space-x-6'>
-        <div className='xl:pr-40'>
-          <Link href='/'>
-            <a>
-              <Logo />
-            </a>
-          </Link>
-        </div>
+    <header className={style.wrapper}>
+      <div className={style.logoContainer}>
+        <Link href='/'>
+          <a>
+            <Logo />
+          </a>
+        </Link>
+      </div>
 
-        <div className='ml-8 hidden flex-1 sm:block'>
-          <SearchInput />
-        </div>
+      <div className={style.searchContainer}>
+        <SearchInput />
+      </div>
 
-        <div className='hidden pr-6 lg:block xl:pl-8'>
-          <NavMenus menus={menus} />
-        </div>
+      <div className={style.menusContainer}>
+        <NavMenus menus={menus} />
+      </div>
 
-        <div className='flex items-center space-x-6'>
-          <UserCircleIcon className='hidden h-8 w-8 cursor-pointer text-gray-600 transition-all hover:text-black dark:text-gray-300 hover:dark:text-white lg:block' />
-          <CreditCardIcon className='hidden h-8 w-8 cursor-pointer text-gray-600 transition-all hover:text-black dark:text-gray-300 hover:dark:text-white lg:block' />
-          {renderThemeChanger()}
-          <SearchIcon className='h-7 w-7 cursor-pointer text-gray-600 transition-all hover:text-black dark:text-gray-300 hover:dark:text-white sm:hidden' />
-          <MenuIcon className='h-8 w-8 cursor-pointer text-gray-600 transition-all hover:text-black dark:text-gray-300 hover:dark:text-white lg:hidden' />
-        </div>
+      <div className={style.iconsContainer}>
+        <UserCircleIcon className={`${style.icons} ${style.desktopIcons}`} />
+        <CreditCardIcon className={`${style.icons} ${style.desktopIcons}`} />
+        {renderThemeChanger()}
+        <SearchIcon className={`${style.icons} ${style.mobileIcons}`} />
+        <MenuIcon className={`${style.icons} ${style.tabletIcons}`} />
       </div>
     </header>
   )
